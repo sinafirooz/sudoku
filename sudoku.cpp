@@ -1,9 +1,10 @@
-#include <iostream>
-using namespace std;
+#include <cstring>
+#include <cstdio>
+#include <stdio.h>
 
 #define N 10
 
-const int n = 3;
+const int n = 3; // 3 = standard sudoku size. n = 4 for 16x16 sudoku, n = 5 for 25x25 sudoku, etc.
 const int n2 = n * n; // number of numbers
 
 int sdk[N * N + 1] [N * N + 1];
@@ -16,6 +17,7 @@ void printans() {
 			printf("%d ",ans[i] [j]);
 	printf("\n");
 }
+
 bool isanswer() {
 	bool check[N * N + 1];
 	for (int i = 1; i <= n2; i++) {
@@ -52,6 +54,7 @@ bool isanswer() {
 	}
 	return true;
 }
+
 bool promissing(int x, int y) {
 	bool check[n2 + 1];
 	memset(check,false, n2 + 1);
@@ -78,6 +81,7 @@ bool promissing(int x, int y) {
 		}
 	return true;
 }
+
 int solve(int x, int y) {
 	static int solutions = 0;
 	int x2 = (y < n2) ? x : x + 1;
@@ -103,11 +107,19 @@ int solve(int x, int y) {
 }
 
 int main() {
-	for (int i = 1; i <= n2; i++)
+	for (int i = 1; i <= n2; i++) {
 		for (int j = 1; j <= n2; j++) {
-			scanf("%d", &sdk[i] [j]);
-			ans[i] [j] = sdk[i] [j];
+			int ret = scanf("%d", &sdk[i][j]);
+			if (ret == 1) {
+				printf("Value read successfully");
+			} else if (ret == EOF) {
+				printf("End of input or read error.\n");
+			} else {
+				printf("Invalid input: only %d values read.\n", ret);
+			}
+			ans[i][j] = sdk[i][j];
 		}
+	}
 	printf("%d\n", solve(1, 1));
 	return 0;
 }
