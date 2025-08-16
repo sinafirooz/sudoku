@@ -1,0 +1,6 @@
+#!/bin/bash
+# Minimal configure script for sudoku project
+
+echo "No configuration needed for this project."
+echo "You can run 'make' to build the project."
+exit 0
